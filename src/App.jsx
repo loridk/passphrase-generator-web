@@ -48,7 +48,7 @@ function App() {
   const [includeNumber, setIncludeNumber] = useState(DEFAULT_INCLUDE_NUMBER);
   const [includeSymbol, setIncludeSymbol] = useState(DEFAULT_INCLUDE_SYMBOL);
   const [result, setResult] = useState(initialResult);
-  const [copyStatus, setCopyStatus] = useState("");
+  const [statusMessage, setStatusMessage] = useState("");
   const strength = getStrengthGuidance(result.wordCount);
 
   function handleGenerate() {
@@ -62,7 +62,9 @@ function App() {
     });
 
     setResult(newResult);
-    setCopyStatus("");
+    setStatusMessage(
+      `New passphrase generated. ${newResult.wordCount} words and ${newResult.passphrase.length} characters.`,
+    );
   }
 
   function handleMinimumWordsChange(event) {
@@ -95,11 +97,11 @@ function App() {
     try {
       await copyToClipboard(result.passphrase);
 
-      setCopyStatus("Passphrase copied to clipboard.");
+      setStatusMessage("Passphrase copied to clipboard.");
     } catch (error) {
       console.error(error);
 
-      setCopyStatus(
+      setStatusMessage(
         "The passphrase could not be copied. Select it and copy it manually.",
       );
     }
@@ -221,15 +223,19 @@ function App() {
           </p>
         </div>
 
-        <output
-          className="passphrase-output"
-          aria-label="Generated passphrase"
-          aria-describedby="passphrase-length"
-        >
-          {result.passphrase}
-        </output>
+        <div className="result">
+          <label htmlFor="generated-passphrase">Generated passphrase</label>
 
-        <p id="passphrase-length">{result.passphrase.length} characters</p>
+          <output
+            id="generated-passphrase"
+            className="passphrase-output"
+            aria-describedby="passphrase-length"
+          >
+            {result.passphrase}
+          </output>
+
+          <p id="passphrase-length">{result.passphrase.length} characters</p>
+        </div>
 
         <section className="strength" aria-labelledby="strength-heading">
           <h2 id="strength-heading">Strength guidance</h2>
@@ -247,8 +253,8 @@ function App() {
           Copy passphrase
         </button>
 
-        <p className="copy-status" role="status">
-          {copyStatus}
+        <p className="status-message" role="status">
+          {statusMessage}
         </p>
 
         <button type="button" onClick={handleGenerate}>
