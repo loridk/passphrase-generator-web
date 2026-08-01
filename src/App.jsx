@@ -11,7 +11,20 @@ const DEFAULT_SEPARATOR = "-";
 const DEFAULT_CAPITALIZE = true;
 const DEFAULT_INCLUDE_NUMBER = true;
 const DEFAULT_INCLUDE_SYMBOL = false;
+
 const THEME_STORAGE_KEY = "passphrase-generator:theme";
+const SETTINGS_STORAGE_KEY = "passphrase-generator:settings";
+
+const DEFAULT_SETTINGS = {
+  minimumWords: DEFAULT_MINIMUM_WORDS,
+  minimumLength: DEFAULT_MINIMUM_LENGTH,
+  separator: DEFAULT_SEPARATOR,
+  capitalize: DEFAULT_CAPITALIZE,
+  includeNumber: DEFAULT_INCLUDE_NUMBER,
+  includeSymbol: DEFAULT_INCLUDE_SYMBOL,
+};
+
+const ALLOWED_MINIMUM_LENGTHS = [0, 16, 20, 24, 32, 40];
 
 function getInitialTheme() {
   const savedTheme = globalThis.localStorage.getItem(THEME_STORAGE_KEY);
@@ -25,6 +38,55 @@ function getInitialTheme() {
   ).matches;
 
   return prefersLight ? "light" : "dark";
+}
+
+function getInitialSettings() {
+  try {
+    const savedValue = globalThis.localStorage.getItem(SETTINGS_STORAGE_KEY);
+
+    if (!savedValue) {
+      return DEFAULT_SETTINGS;
+    }
+
+    const savedSettings = JSON.parse(savedValue);
+
+    return {
+      minimumWords: [4, 5, 6].includes(savedSettings.minimumWords)
+        ? savedSettings.minimumWords
+        : DEFAULT_SETTINGS.minimumWords,
+
+      minimumLength: ALLOWED_MINIMUM_LENGTHS.includes(
+        savedSettings.minimumLength,
+      )
+        ? savedSettings.minimumLength
+        : DEFAULT_SETTINGS.minimumLength,
+
+      separator:
+        typeof savedSettings.separator === "string" &&
+        savedSettings.separator.length <= 10
+          ? savedSettings.separator
+          : DEFAULT_SETTINGS.separator,
+
+      capitalize:
+        typeof savedSettings.capitalize === "boolean"
+          ? savedSettings.capitalize
+          : DEFAULT_SETTINGS.capitalize,
+
+      includeNumber:
+        typeof savedSettings.includeNumber === "boolean"
+          ? savedSettings.includeNumber
+          : DEFAULT_SETTINGS.includeNumber,
+
+      includeSymbol:
+        typeof savedSettings.includeSymbol === "boolean"
+          ? savedSettings.includeSymbol
+          : DEFAULT_SETTINGS.includeSymbol,
+    };
+  } catch (error) {
+    console.warn("Saved settings could not be loaded.", error);
+
+    return DEFAULT_SETTINGS;
+  }
 }
 
 function createPassphrase({
@@ -46,23 +108,26 @@ function createPassphrase({
   });
 }
 
-const initialResult = createPassphrase({
-  minimumWords: DEFAULT_MINIMUM_WORDS,
-  minimumLength: DEFAULT_MINIMUM_LENGTH,
-  separator: DEFAULT_SEPARATOR,
-  capitalize: DEFAULT_CAPITALIZE,
-  includeNumber: DEFAULT_INCLUDE_NUMBER,
-  includeSymbol: DEFAULT_INCLUDE_SYMBOL,
-});
+const initialSettings = getInitialSettings();
+
+const initialResult = createPassphrase(initialSettings);
 
 function App() {
   const [theme, setTheme] = useState(getInitialTheme);
-  const [minimumWords, setMinimumWords] = useState(DEFAULT_MINIMUM_WORDS);
-  const [minimumLength, setMinimumLength] = useState(DEFAULT_MINIMUM_LENGTH);
-  const [separator, setSeparator] = useState(DEFAULT_SEPARATOR);
-  const [capitalize, setCapitalize] = useState(DEFAULT_CAPITALIZE);
-  const [includeNumber, setIncludeNumber] = useState(DEFAULT_INCLUDE_NUMBER);
-  const [includeSymbol, setIncludeSymbol] = useState(DEFAULT_INCLUDE_SYMBOL);
+  const [minimumWords, setMinimumWords] = useState(
+    initialSettings.minimumWords,
+  );
+  const [minimumLength, setMinimumLength] = useState(
+    initialSettings.minimumLength,
+  );
+  const [separator, setSeparator] = useState(initialSettings.separator);
+  const [capitalize, setCapitalize] = useState(initialSettings.capitalize);
+  const [includeNumber, setIncludeNumber] = useState(
+    initialSettings.includeNumber,
+  );
+  const [includeSymbol, setIncludeSymbol] = useState(
+    initialSettings.includeSymbol,
+  );
   const [result, setResult] = useState(initialResult);
   const [statusMessage, setStatusMessage] = useState("");
 
@@ -70,6 +135,33 @@ function App() {
     document.documentElement.dataset.theme = theme;
     globalThis.localStorage.setItem(THEME_STORAGE_KEY, theme);
   }, [theme]);
+
+  useEffect(() => {
+    const settings = {
+      minimumWords,
+      minimumLength,
+      separator,
+      capitalize,
+      includeNumber,
+      includeSymbol,
+    };
+
+    try {
+      globalThis.localStorage.setItem(
+        SETTINGS_STORAGE_KEY,
+        JSON.stringify(settings),
+      );
+    } catch (error) {
+      console.warn("Settings could not be saved.", error);
+    }
+  }, [
+    minimumWords,
+    minimumLength,
+    separator,
+    capitalize,
+    includeNumber,
+    includeSymbol,
+  ]);
 
   const strength = getStrengthGuidance(result.wordCount);
 
@@ -229,6 +321,10 @@ function App() {
           >
             <fieldset>
               <legend>Passphrase settings</legend>
+
+              <p className="settings-note">
+                Settings save automatically on this device.
+              </p>
 
               <div className="field">
                 <label htmlFor="minimum-words">Minimum words</label>
