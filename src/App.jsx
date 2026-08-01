@@ -3,6 +3,7 @@ import generatePassphrase from "./core/generatePassphrase.js";
 import words from "./data/words.js";
 import "./App.css";
 import copyToClipboard from "./platform/copyToClipboard.js";
+import getStrengthGuidance from "./core/getStrengthGuidance.js";
 
 const DEFAULT_MINIMUM_WORDS = 4;
 const DEFAULT_MINIMUM_LENGTH = 20;
@@ -30,7 +31,7 @@ function createPassphrase({
   });
 }
 
-const initialPassphrase = createPassphrase({
+const initialResult = createPassphrase({
   minimumWords: DEFAULT_MINIMUM_WORDS,
   minimumLength: DEFAULT_MINIMUM_LENGTH,
   separator: DEFAULT_SEPARATOR,
@@ -46,11 +47,12 @@ function App() {
   const [capitalize, setCapitalize] = useState(DEFAULT_CAPITALIZE);
   const [includeNumber, setIncludeNumber] = useState(DEFAULT_INCLUDE_NUMBER);
   const [includeSymbol, setIncludeSymbol] = useState(DEFAULT_INCLUDE_SYMBOL);
-  const [passphrase, setPassphrase] = useState(initialPassphrase);
+  const [result, setResult] = useState(initialResult);
   const [copyStatus, setCopyStatus] = useState("");
+  const strength = getStrengthGuidance(result.wordCount);
 
   function handleGenerate() {
-    const newPassphrase = createPassphrase({
+    const newResult = createPassphrase({
       minimumWords,
       minimumLength,
       separator,
@@ -59,7 +61,7 @@ function App() {
       includeSymbol,
     });
 
-    setPassphrase(newPassphrase);
+    setResult(newResult);
     setCopyStatus("");
   }
 
@@ -91,7 +93,7 @@ function App() {
 
   async function handleCopy() {
     try {
-      await copyToClipboard(passphrase);
+      await copyToClipboard(result.passphrase);
 
       setCopyStatus("Passphrase copied to clipboard.");
     } catch (error) {
@@ -224,10 +226,22 @@ function App() {
           aria-label="Generated passphrase"
           aria-describedby="passphrase-length"
         >
-          {passphrase}
+          {result.passphrase}
         </output>
 
-        <p id="passphrase-length">{passphrase.length} characters</p>
+        <p id="passphrase-length">{result.passphrase.length} characters</p>
+
+        <section className="strength" aria-labelledby="strength-heading">
+          <h2 id="strength-heading">Strength guidance</h2>
+
+          <p>
+            <strong>{strength.label}</strong>
+          </p>
+
+          <p>{strength.description}</p>
+
+          <p>Based on {result.wordCount} randomly selected words.</p>
+        </section>
 
         <button type="button" onClick={handleCopy}>
           Copy passphrase

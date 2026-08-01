@@ -102,7 +102,10 @@ function generatePassphrase({
     passphrase = `${passphrase}${randomDigit}`;
   }
 
-  return passphrase;
+  return {
+    passphrase,
+    wordCount: selectedWords.length,
+  };
 }
 
 export default generatePassphrase;
