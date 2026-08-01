@@ -231,7 +231,9 @@ function App() {
             </div>
           </fieldset>
 
-          <button type="submit">Generate new passphrase</button>
+          <button className="button button--primary" type="submit">
+            Generate new passphrase
+          </button>
         </form>
 
         <div className="result">
@@ -260,7 +262,11 @@ function App() {
           <p>Based on {result.wordCount} randomly selected words.</p>
         </section>
 
-        <button type="button" onClick={handleCopy}>
+        <button
+          className="button button--secondary"
+          type="button"
+          onClick={handleCopy}
+        >
           Copy passphrase
         </button>
 

@@ -1,7 +1,7 @@
 .app {
   position: relative;
-  width: min(100%, 32rem);
-  padding: 2rem;
+  width: min(100%, 34rem);
+  padding: clamp(1.25rem, 5vw, 2rem);
   overflow: hidden;
   background: linear-gradient(
     145deg,
@@ -36,8 +36,193 @@
   text-shadow: 0 0 1.5rem rgb(77 238 234 / 25%);
 }
 
-.app p {
-  margin: 0.75rem 0 0;
+.app-intro {
+  margin: 0.75rem 0 1.75rem;
   color: var(--color-text-muted);
   line-height: 1.5;
+}
+
+.app a {
+  color: var(--color-cyan);
+  text-underline-offset: 0.2em;
+}
+
+.app a:hover {
+  text-decoration-thickness: 0.15em;
+}
+
+.generator {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.settings-form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.settings-form fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.settings-form legend {
+  margin-bottom: 1.25rem;
+  padding: 0;
+  color: var(--color-pink);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.field {
+  display: grid;
+  gap: 0.5rem;
+  margin-block: 1rem;
+}
+
+.field > label:not(.checkbox-field) {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.field select,
+.field input[type="text"] {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.625rem 0.75rem;
+  color: var(--color-text);
+  background: var(--color-background);
+  border: 2px solid var(--color-border);
+  border-radius: 0.5rem;
+}
+
+.field select:hover,
+.field input[type="text"]:hover {
+  border-color: var(--color-cyan);
+}
+
+.field p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.checkbox-field {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  min-height: 44px;
+  color: var(--color-text);
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.checkbox-field input {
+  flex: 0 0 auto;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0;
+  accent-color: var(--color-cyan);
+}
+
+.button {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  border: 2px solid transparent;
+  border-radius: 0.5rem;
+  font-weight: 800;
+}
+
+.button--primary {
+  color: var(--color-background);
+  background: var(--color-cyan);
+}
+
+.button--secondary {
+  color: var(--color-pink);
+  background: transparent;
+  border-color: var(--color-pink);
+}
+
+.button--primary:hover {
+  background: var(--color-green);
+}
+
+.button--secondary:hover {
+  color: var(--color-background);
+  background: var(--color-pink);
+}
+
+.result {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.result label {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.passphrase-output {
+  display: block;
+  width: 100%;
+  min-height: 4rem;
+  padding: 1rem;
+  overflow-wrap: anywhere;
+  color: var(--color-cyan);
+  background: var(--color-background);
+  border: 2px solid var(--color-border);
+  border-radius: 0.5rem;
+  font-family:
+    ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size: 1rem;
+  line-height: 1.5;
+  user-select: all;
+}
+
+#passphrase-length {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.strength {
+  padding: 1rem;
+  background: rgb(114 255 114 / 6%);
+  border-inline-start: 0.25rem solid var(--color-green);
+  border-radius: 0.25rem;
+}
+
+.strength h2 {
+  margin: 0 0 0.75rem;
+  color: var(--color-green);
+  font-size: 1.125rem;
+}
+
+.strength p {
+  margin: 0.5rem 0 0;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.strength strong {
+  color: var(--color-text);
+}
+
+.status-message {
+  min-height: 1.5rem;
+  margin: 0;
+  color: var(--color-green);
+  line-height: 1.5;
+}
+
+@media (max-width: 30rem) {
+  .app {
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+  }
 }
