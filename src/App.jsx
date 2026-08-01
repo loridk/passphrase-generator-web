@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import generatePassphrase from "./core/generatePassphrase.js";
 import getStrengthGuidance from "./core/getStrengthGuidance.js";
 import words from "./data/words.js";
@@ -11,6 +11,21 @@ const DEFAULT_SEPARATOR = "-";
 const DEFAULT_CAPITALIZE = true;
 const DEFAULT_INCLUDE_NUMBER = true;
 const DEFAULT_INCLUDE_SYMBOL = false;
+const THEME_STORAGE_KEY = "passphrase-generator:theme";
+
+function getInitialTheme() {
+  const savedTheme = globalThis.localStorage.getItem(THEME_STORAGE_KEY);
+
+  if (savedTheme === "dark" || savedTheme === "light") {
+    return savedTheme;
+  }
+
+  const prefersLight = globalThis.matchMedia(
+    "(prefers-color-scheme: light)",
+  ).matches;
+
+  return prefersLight ? "light" : "dark";
+}
 
 function createPassphrase({
   minimumWords,
@@ -41,6 +56,7 @@ const initialResult = createPassphrase({
 });
 
 function App() {
+  const [theme, setTheme] = useState(getInitialTheme);
   const [minimumWords, setMinimumWords] = useState(DEFAULT_MINIMUM_WORDS);
   const [minimumLength, setMinimumLength] = useState(DEFAULT_MINIMUM_LENGTH);
   const [separator, setSeparator] = useState(DEFAULT_SEPARATOR);
@@ -50,7 +66,18 @@ function App() {
   const [result, setResult] = useState(initialResult);
   const [statusMessage, setStatusMessage] = useState("");
 
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    globalThis.localStorage.setItem(THEME_STORAGE_KEY, theme);
+  }, [theme]);
+
   const strength = getStrengthGuidance(result.wordCount);
+
+  function handleThemeToggle() {
+    setTheme((currentTheme) => {
+      return currentTheme === "dark" ? "light" : "dark";
+    });
+  }
 
   function handleGenerate(event) {
     event.preventDefault();
@@ -111,7 +138,23 @@ function App() {
 
   return (
     <main className="app">
-      <h1>Passphrase Generator</h1>
+      <header className="app-header">
+        <h1>Passphrase Generator</h1>
+
+        <button
+          className="theme-toggle"
+          type="button"
+          onClick={handleThemeToggle}
+        >
+          <span>{theme === "dark" ? "Light mode" : "Dark mode"}</span>
+
+          <small>
+            {theme === "dark"
+              ? "Fine. Turn on the big light."
+              : "Return to the void."}
+          </small>
+        </button>
+      </header>
 
       <p className="app-intro">
         Create a strong passphrase that is easier to remember. Based on the{" "}

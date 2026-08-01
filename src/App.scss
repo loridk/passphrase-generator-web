@@ -41,6 +41,35 @@
   }
 }
 
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.theme-toggle {
+  display: grid;
+  gap: 0.125rem;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  color: var(--color-text);
+  text-align: start;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+
+  span {
+    color: var(--color-pink);
+    font-weight: 800;
+  }
+
+  small {
+    color: var(--color-text-muted);
+  }
+}
+
 .app-intro {
   margin: 0.75rem 0 1.75rem;
   color: var(--color-text-muted);
@@ -74,8 +103,8 @@
 }
 
 .action-group {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 0.75rem;
 }
 
@@ -138,9 +167,9 @@
 /* Settings disclosure */
 .settings-panel {
   overflow: hidden;
-  background: rgb(5 7 13 / 45%);
   border: 1px solid var(--color-border);
   border-radius: 0.75rem;
+  background: var(--color-panel);
 
   summary {
     min-height: 44px;
