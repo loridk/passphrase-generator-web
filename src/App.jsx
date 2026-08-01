@@ -73,10 +73,8 @@ function App() {
 
   const strength = getStrengthGuidance(result.wordCount);
 
-  function handleThemeToggle() {
-    setTheme((currentTheme) => {
-      return currentTheme === "dark" ? "light" : "dark";
-    });
+  function handleThemeChange(event) {
+    setTheme(event.target.checked ? "light" : "dark");
   }
 
   function handleGenerate(event) {
@@ -141,19 +139,28 @@ function App() {
       <header className="app-header">
         <h1>Passphrase Generator</h1>
 
-        <button
-          className="theme-toggle"
-          type="button"
-          onClick={handleThemeToggle}
-        >
-          <span>{theme === "dark" ? "Light mode" : "Dark mode"}</span>
-
-          <small>
-            {theme === "dark"
+        <label
+          className="theme-switch"
+          data-tooltip={
+            theme === "dark"
               ? "Fine. Turn on the big light."
-              : "Return to the void."}
-          </small>
-        </button>
+              : "Return to the void."
+          }
+        >
+          <input
+            type="checkbox"
+            role="switch"
+            checked={theme === "light"}
+            aria-label="Light mode"
+            onChange={handleThemeChange}
+          />
+
+          <span className="theme-switch__track" aria-hidden="true">
+            <span>☾</span>
+            <span>☀</span>
+            <span className="theme-switch__thumb"></span>
+          </span>
+        </label>
       </header>
 
       <p className="app-intro">
