@@ -66,6 +66,22 @@ function generatePassphrase({
     }
   }
 
+  if (includeSymbol) {
+    const symbolIndex = getSecureRandomInteger(SYMBOLS.length);
+    const selectedSymbol = SYMBOLS[symbolIndex];
+    const insertionPoint = getSecureRandomInteger(selectedWords.length + 1);
+
+    if (insertionPoint === selectedWords.length) {
+      const lastWordIndex = selectedWords.length - 1;
+
+      selectedWords[lastWordIndex] =
+        `${selectedWords[lastWordIndex]}${selectedSymbol}`;
+    } else {
+      selectedWords[insertionPoint] =
+        `${selectedSymbol}${selectedWords[insertionPoint]}`;
+    }
+  }
+
   let passphrase = selectedWords[0];
 
   for (let index = 1; index < selectedWords.length; index += 1) {
