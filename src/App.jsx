@@ -3,7 +3,7 @@ import generatePassphrase from "./core/generatePassphrase.js";
 import getStrengthGuidance from "./core/getStrengthGuidance.js";
 import words from "./data/words.js";
 import copyToClipboard from "./platform/copyToClipboard.js";
-import "./App.css";
+import "./App.scss";
 
 const DEFAULT_MINIMUM_WORDS = 4;
 const DEFAULT_MINIMUM_LENGTH = 20;
