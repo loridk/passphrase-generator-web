@@ -4,14 +4,16 @@ import words from "./data/words.js";
 import "./App.css";
 import copyToClipboard from "./platform/copyToClipboard.js";
 
-const DEFAULT_WORD_COUNT = 4;
+const DEFAULT_MINIMUM_WORDS = 4;
+const DEFAULT_MINIMUM_LENGTH = 20;
 const DEFAULT_SEPARATOR = "-";
 const DEFAULT_CAPITALIZE = true;
 const DEFAULT_INCLUDE_NUMBER = true;
 const DEFAULT_INCLUDE_SYMBOL = false;
 
 function createPassphrase({
-  wordCount,
+  minimumWords,
+  minimumLength,
   separator,
   capitalize,
   includeNumber,
@@ -19,7 +21,8 @@ function createPassphrase({
 }) {
   return generatePassphrase({
     wordList: words,
-    wordCount,
+    minimumWords,
+    minimumLength,
     separator,
     capitalize,
     includeNumber,
@@ -28,7 +31,8 @@ function createPassphrase({
 }
 
 const initialPassphrase = createPassphrase({
-  wordCount: DEFAULT_WORD_COUNT,
+  minimumWords: DEFAULT_MINIMUM_WORDS,
+  minimumLength: DEFAULT_MINIMUM_LENGTH,
   separator: DEFAULT_SEPARATOR,
   capitalize: DEFAULT_CAPITALIZE,
   includeNumber: DEFAULT_INCLUDE_NUMBER,
@@ -36,7 +40,8 @@ const initialPassphrase = createPassphrase({
 });
 
 function App() {
-  const [wordCount, setWordCount] = useState(DEFAULT_WORD_COUNT);
+  const [minimumWords, setMinimumWords] = useState(DEFAULT_MINIMUM_WORDS);
+  const [minimumLength, setMinimumLength] = useState(DEFAULT_MINIMUM_LENGTH);
   const [separator, setSeparator] = useState(DEFAULT_SEPARATOR);
   const [capitalize, setCapitalize] = useState(DEFAULT_CAPITALIZE);
   const [includeNumber, setIncludeNumber] = useState(DEFAULT_INCLUDE_NUMBER);
@@ -46,7 +51,8 @@ function App() {
 
   function handleGenerate() {
     const newPassphrase = createPassphrase({
-      wordCount,
+      minimumWords,
+      minimumLength,
       separator,
       capitalize,
       includeNumber,
@@ -57,10 +63,14 @@ function App() {
     setCopyStatus("");
   }
 
-  function handleWordCountChange(event) {
-    const newWordCount = Number(event.target.value);
+  function handleMinimumWordsChange(event) {
+    const newMinimumWords = Number(event.target.value);
 
-    setWordCount(newWordCount);
+    setMinimumWords(newMinimumWords);
+  }
+
+  function handleMinimumLengthChange(event) {
+    setMinimumLength(Number(event.target.value));
   }
 
   function handleSeparatorChange(event) {
@@ -110,17 +120,39 @@ function App() {
 
       <section className="generator">
         <div className="field">
-          <label htmlFor="word-count">Words</label>
+          <label htmlFor="minimum-words">Minimum words</label>
 
           <select
-            id="word-count"
-            value={wordCount}
-            onChange={handleWordCountChange}
+            id="minimum-words"
+            value={minimumWords}
+            onChange={handleMinimumWordsChange}
           >
             <option value="4">4 words</option>
             <option value="5">5 words</option>
             <option value="6">6 words</option>
           </select>
+        </div>
+
+        <div className="field">
+          <label htmlFor="minimum-length">Minimum characters</label>
+
+          <select
+            id="minimum-length"
+            value={minimumLength}
+            aria-describedby="minimum-length-help"
+            onChange={handleMinimumLengthChange}
+          >
+            <option value="0">No minimum</option>
+            <option value="16">16 characters</option>
+            <option value="20">20 characters</option>
+            <option value="24">24 characters</option>
+            <option value="32">32 characters</option>
+            <option value="40">40 characters</option>
+          </select>
+
+          <p id="minimum-length-help">
+            Additional words may be added to reach this length.
+          </p>
         </div>
 
         <div className="field">
