@@ -6,7 +6,7 @@ function AppFooter() {
       <p>
         Built with <span aria-hidden="true">¯\_(ツ)_/¯</span>
         <span className="visually-hidden">a shrug</span> by{" "}
-        <a href="https://loridunford.com/">Lori Dunford</a>.
+        <a href="https://loridunford.com/">Lori DK</a>.
       </p>
     </footer>
   );
