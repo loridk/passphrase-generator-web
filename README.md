@@ -66,6 +66,8 @@ This is an educational open-source project and has not received a professional
 security audit. Users should follow the password requirements and security
 guidance of the service they are using.
 
+Read the full [CyberPhrase privacy policy](https://cyberphrase.loridunford.com/privacy.html).
+
 ## Accessibility
 
 CyberPhrase was built with WCAG 2.2 AA practices in mind, including:
