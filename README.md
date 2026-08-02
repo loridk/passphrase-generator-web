@@ -1,20 +1,67 @@
-# React + Vite
+# Passphrase Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An accessible, privacy-focused passphrase generator inspired by the
+[Correct Horse Battery Staple XKCD comic](https://xkcd.com/936/).
 
-Currently, two official plugins are available:
+It creates memorable passphrases from a local word list using
+cryptographically secure randomness. Everything runs in the browser—generated
+passphrases are never sent to a server or saved.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- Generates passphrases containing four to six words
+- Supports a configurable minimum length
+- Offers custom, random, or no separators
+- Optionally capitalizes words
+- Optionally adds a number or symbol
+- Provides password-strength guidance
+- Copies passphrases to the clipboard
+- Saves generator settings locally
+- Includes accessible dark and light themes
+- Works responsively across screen sizes
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Security and Privacy
 
-## Expanding the ESLint configuration
+- Random selections use the browser's Web Crypto API
+- Words come from a bundled local word list
+- No external requests are needed to generate a passphrase
+- Generated passphrases are not placed in URLs or local storage
+- Only generator preferences and theme choice are saved locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+This is an educational project and has not received a professional security
+audit. Users should follow the password requirements and security guidance of
+the service they are using.
 
-## Start the project
+## Accessibility
 
-npm run dev
+The interface was built with WCAG 2.2 AA practices in mind, including:
+
+- Explicitly connected labels and instructions
+- Semantic forms, fieldsets, legends, buttons, and output elements
+- Keyboard-accessible controls
+- Visible focus indicators
+- Status messages that do not announce the generated password
+- High-contrast dark and light color palettes
+- Touch targets of at least 44 pixels
+- Responsive layouts that support browser zoom
+- Reduced-motion preferences
+
+Automated testing supports—but does not replace—manual accessibility testing.
+
+## Technology
+
+- React
+- JavaScript
+- Vite
+- Sass
+- Vitest
+- Web Crypto API
+- Clipboard API
+
+## Run Locally
+
+Install the dependencies:
+
+```bash
+npm install
+```
