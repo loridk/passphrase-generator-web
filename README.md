@@ -22,10 +22,9 @@ Store so that updates are delivered automatically.
 
 ### Web App
 
-CyberPhrase can also be used directly in a web browser without installing
-anything.
+Use CyberPhrase directly in your browser:
 
-> Live website link coming soon.
+[Open the CyberPhrase web app](https://cyberphrase.loridunford.com/)
 
 ## Features
 
