@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "CyberPhrase: Passphrase Generator",
   "short_name": "CyberPhrase",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate memorable passphrases locally using cryptographically secure randomness.",
   "homepage_url": "https://cyberphrase.loridunford.com/",
   "icons": {
