@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Passphrase Generator",
+  "version": "1.0.0",
+  "description": "Generate memorable passphrases locally using cryptographically secure randomness.",
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Generate a passphrase"
+  }
+}
