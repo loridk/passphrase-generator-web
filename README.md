@@ -1,4 +1,4 @@
-# Passphrase Generator
+# CyberPhrase
 
 An accessible, privacy-focused passphrase generator inspired by the
 [Correct Horse Battery Staple XKCD comic](https://xkcd.com/936/).

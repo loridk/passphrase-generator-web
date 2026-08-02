@@ -234,19 +234,22 @@ function App() {
   return (
     <main className="app">
       <header className="app-header">
-        <h1>Passphrase Generator</h1>
+        <h1>CyberPhrase</h1>
         <ThemeSwitch theme={theme} onThemeChange={handleThemeChange} />
       </header>
 
       <p className="app-intro">
-        Create a strong passphrase that is easier to remember. Based on the{" "}
+        Generate a secure, memorable passphrase using local word lists and
+        cryptographically secure randomness. Inspired by{" "}
         <a
           href="https://xkcd.com/936/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          XKCD comic #936 (opens in a new tab).
+          XKCD comic #936
+          <span className="visually-hidden"> (opens in a new tab)</span>
         </a>
+        .
       </p>
 
       <div className="generator">
