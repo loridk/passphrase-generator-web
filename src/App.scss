@@ -275,6 +275,11 @@
     font-weight: 800;
     cursor: pointer;
 
+    &:focus-visible {
+      outline: 3px solid var(--color-cyan);
+      outline-offset: -3px;
+    }
+
     &::marker {
       color: var(--color-pink);
     }

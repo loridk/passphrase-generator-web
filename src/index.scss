@@ -69,6 +69,16 @@
   }
 }
 
+:root[data-app-context="extension"] {
+  body {
+    width: 28rem;
+  }
+
+  #root {
+    width: 100%;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
