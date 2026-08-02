@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "icons": "node scripts/generate-extension-icons.mjs"
   },
   "dependencies": {
     "react": "^19.2.8",
@@ -25,6 +26,7 @@
     "eslint-plugin-react-refresh": "^0.5.3",
     "globals": "^17.7.0",
     "sass-embedded": "^1.100.0",
+    "sharp": "^0.35.3",
     "vite": "^8.2.0",
     "vitest": "^4.1.10"
   }
