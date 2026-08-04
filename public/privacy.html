@@ -6,7 +6,7 @@
 
     <meta
       name="description"
-      content="Privacy policy for the CyberPhrase web app and Chrome extension."
+      content="Privacy policy for the CyberPhrase web app, Chrome extension, and mobile app."
     />
 
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
@@ -21,15 +21,16 @@
 
       <h1>CyberPhrase Privacy Policy</h1>
 
-      <p><strong>Last updated:</strong> August 1, 2026</p>
+      <p><strong>Last updated:</strong> August 3, 2026</p>
 
       <section aria-labelledby="summary-heading">
         <h2 id="summary-heading">Summary</h2>
 
         <p>
-          CyberPhrase does not transmit, sell, or share user data. Generated
-          passphrases and generator preferences are processed locally on your
-          device and are never sent to the developer or an external service.
+          CyberPhrase does not collect, transmit, sell, or share user data.
+          Generated passphrases and generator preferences are processed locally
+          on your device and are never sent to the developer or an external
+          service.
         </p>
       </section>
 
@@ -37,15 +38,36 @@
         <h2 id="local-data-heading">Information Stored Locally</h2>
 
         <p>
-          CyberPhrase saves your generator preferences and theme choice in your
-          browser's local storage. This information remains on your device and
-          is not transmitted to the developer.
+          CyberPhrase saves generator preferences and theme choice locally on
+          your device.
         </p>
 
         <p>
-          Generated passphrases are not saved in local storage. A generated
-          passphrase exists temporarily in the application while it is
-          displayed.
+          The web app and Chrome extension use browser local storage. The mobile
+          app uses persistent local application storage. Mobile preferences are
+          stored using AsyncStorage, which is unencrypted and is intended for
+          ordinary preferences, not secrets. CyberPhrase stores generator
+          settings and theme choice there, but never generated passphrases.
+        </p>
+
+        <p>
+          You can remove saved preferences by clearing the website or extension
+          storage, clearing the mobile app's data, or uninstalling the app.
+        </p>
+      </section>
+
+      <section aria-labelledby="passphrases-heading">
+        <h2 id="passphrases-heading">Generated Passphrases</h2>
+
+        <p>
+          Generated passphrases are not saved in browser local storage or
+          persistent mobile storage. A generated passphrase exists temporarily
+          in the application while it is displayed.
+        </p>
+
+        <p>
+          CyberPhrase does not transmit generated passphrases to the developer,
+          an external API, or another service.
         </p>
       </section>
 
@@ -53,14 +75,15 @@
         <h2 id="clipboard-heading">Clipboard Access</h2>
 
         <p>
-          CyberPhrase writes a passphrase to your clipboard only when you
-          activate the Copy button. The developer does not receive or have
+          CyberPhrase writes a passphrase to your device's clipboard only when
+          you activate the Copy button. The developer does not receive or have
           access to clipboard contents.
         </p>
 
         <p>
-          A copied passphrase may remain in your device's clipboard history
-          until it is replaced or removed according to your device settings.
+          After copying, the passphrase is managed by your operating system or
+          browser. It may remain in clipboard history until it is replaced,
+          removed, or automatically cleared according to your device settings.
         </p>
       </section>
 
@@ -80,13 +103,23 @@
         </p>
       </section>
 
-      <section aria-labelledby="permissions-heading">
-        <h2 id="permissions-heading">Chrome Extension Permissions</h2>
+      <section aria-labelledby="chrome-permissions-heading">
+        <h2 id="chrome-permissions-heading">Chrome Extension Permissions</h2>
 
         <p>
           The CyberPhrase Chrome extension does not request access to websites,
           browser tabs, browsing history, or other sensitive browser
           permissions.
+        </p>
+      </section>
+
+      <section aria-labelledby="mobile-permissions-heading">
+        <h2 id="mobile-permissions-heading">Mobile App Permissions</h2>
+
+        <p>
+          The CyberPhrase mobile app does not request access to your contacts,
+          location, camera, microphone, photos, files, or other sensitive device
+          information.
         </p>
       </section>
 
@@ -96,10 +129,14 @@
         <p>
           Information handled by CyberPhrase is used only to provide its
           passphrase-generation, clipboard, preference-saving, and theme
-          features. CyberPhrase complies with the Chrome Web Store User Data
-          Policy, including its Limited Use requirements. Information is not
-          transferred to third parties or used for advertising, lending, or
-          other unrelated purposes.
+          features.
+        </p>
+
+        <p>
+          CyberPhrase complies with the Chrome Web Store User Data Policy,
+          including its Limited Use requirements. Information is not transferred
+          to third parties or used for advertising, lending, creditworthiness,
+          or other unrelated purposes.
         </p>
       </section>
 
@@ -108,8 +145,8 @@
 
         <p>
           This policy may be updated if CyberPhrase's functionality or data
-          practices change. The updated date at the top of this page will
-          identify the latest revision.
+          practices change. The updated date at the top of this page identifies
+          the latest revision.
         </p>
       </section>
 
